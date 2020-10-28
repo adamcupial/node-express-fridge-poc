@@ -1,6 +1,6 @@
 import { BaseModel } from '../../core/base/model';
 import { DB } from '../../core/utils/db';
-import type { Fetchable, Listable, Saveable  } from '../../types/model';
+import type { Indexable, Iterable, Persistable  } from '../../types/model';
 import { staticImplements } from '../../core/utils/ts-helpers';
 
 export interface ProductDataModel {
@@ -9,9 +9,9 @@ export interface ProductDataModel {
     description?: string;
 }
 
-@staticImplements<Fetchable<ProductDataModel>>()
-@staticImplements<Saveable<ProductDataModel>>()
-@staticImplements<Listable<ProductDataModel>>()
+@staticImplements<Indexable<ProductDataModel>>()
+@staticImplements<Persistable<ProductDataModel>>()
+@staticImplements<Iterable<ProductDataModel>>()
 export class Product extends BaseModel<ProductDataModel> {
     async save(): Promise<Product> {
         const dataNoId = Object.fromEntries(Object.entries(this.data).filter(([x, ]) => x !== 'id'));

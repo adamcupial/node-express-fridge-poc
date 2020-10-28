@@ -1,5 +1,5 @@
 import { ValidationMiddlewareFactory } from './utils/validation';
-import type { Fetchable, Listable, Saveable } from '../types/model';
+import type { Indexable, Iterable, Persistable } from '../types/model';
 import type { Request, Response } from 'express';
 import joi from 'joi';
 
@@ -8,7 +8,7 @@ const paginationSchema = joi.object().keys({
     page: joi.number().min(1),
 });
 
-export function PaginatedViewFactory<DataModel>(model: Listable<DataModel>) {
+export function PaginatedViewFactory<DataModel>(model: Iterable<DataModel>) {
     return [
         ValidationMiddlewareFactory(paginationSchema, 'query'),
         async (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ const idSchema = joi.object().keys({
     id: joi.number().required(),
 })
 
-export function DetailViewFactory<DataModel>(model: Fetchable<DataModel>) {
+export function DetailViewFactory<DataModel>(model: Indexable<DataModel>) {
     return [
         ValidationMiddlewareFactory(idSchema, 'params'),
         async (req: Request, res: Response) => {
@@ -49,7 +49,7 @@ export function DetailViewFactory<DataModel>(model: Fetchable<DataModel>) {
 }
 
 
-export function AddViewFactory<DataModel>(model: Saveable<DataModel>, schema: joi.Schema) {
+export function AddViewFactory<DataModel>(model: Persistable<DataModel>, schema: joi.Schema) {
     return [
         ValidationMiddlewareFactory(schema, 'body'),
         async(req: Request, res: Response) => {
