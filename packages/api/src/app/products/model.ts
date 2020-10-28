@@ -1,7 +1,8 @@
 import { BaseModel } from '../../core/base/model';
 import { DB } from '../../core/utils/db';
-import type { Indexable, Iterable, Persistable  } from '../../types/model';
+import type { Indexable, Iterable, Persistable, Schemed } from '../../types/model';
 import { staticImplements } from '../../core/utils/ts-helpers';
+import joi from 'joi';
 
 export interface ProductDataModel {
     id?: number;
@@ -9,12 +10,16 @@ export interface ProductDataModel {
     description?: string;
 }
 
+@staticImplements<Schemed<ProductDataModel>>()
 @staticImplements<Indexable<ProductDataModel>>()
 @staticImplements<Persistable<ProductDataModel>>()
 @staticImplements<Iterable<ProductDataModel>>()
 export class Product extends BaseModel<ProductDataModel> {
     async save(): Promise<Product> {
-        const dataNoId = Object.fromEntries(Object.entries(this.data).filter(([x, ]) => x !== 'id'));
+        const dataNoId = Object.fromEntries(
+            Object.entries(this.data)
+            .filter(([x, ]) => x !== 'id')
+        );
 
         if (this.data.id) {
             const item = await Product.getById(this.data.id);
@@ -32,6 +37,27 @@ export class Product extends BaseModel<ProductDataModel> {
         }
 
         return this;
+    }
+
+    async delete(): Promise<void> {
+        if (this.data.id) {
+            await DB('products')
+                .where('id', this.data.id)
+                .delete();
+        }
+    }
+
+    static getSchema(partial: boolean = false) {
+        if (partial) {
+            return joi.object().keys({
+                name: joi.string(),
+                description: joi.string(),
+            });
+        }
+        return joi.object().keys({
+            name: joi.string().required(),
+            description: joi.string(),
+        });
     }
 
     static async getById(id: number): Promise<Product | null> {
