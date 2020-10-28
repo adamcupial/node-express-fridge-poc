@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Product, ProductDataModel } from './model';
-import { AddViewFactory, DetailViewFactory, PaginatedViewFactory } from '../utils/views';
+import { AddViewFactory, DetailViewFactory, PaginatedViewFactory } from '../../core/utils/views';
 import joi from 'joi';
 
 export const router = Router();

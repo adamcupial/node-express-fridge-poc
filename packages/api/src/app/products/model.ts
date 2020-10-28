@@ -1,7 +1,7 @@
-import { BaseModel } from '../base/model';
-import { DB } from '../utils/db';
-import type { Fetchable, Listable, Saveable  } from '../types/model';
-import { staticImplements } from '../types/model';
+import { BaseModel } from '../../core/base/model';
+import { DB } from '../../core/utils/db';
+import type { Fetchable, Listable, Saveable  } from '../../types/model';
+import { staticImplements } from '../../types/model';
 
 export interface ProductDataModel {
     id?: number;

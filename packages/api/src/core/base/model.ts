@@ -1,4 +1,4 @@
-import { ModelInstance } from '../types/model';
+import { ModelInstance } from '../../types/model';
 
 export abstract class BaseModel<DataType> implements ModelInstance<DataType> {
     __data: DataType;
