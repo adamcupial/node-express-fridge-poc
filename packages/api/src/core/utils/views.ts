@@ -1,5 +1,5 @@
 import { ValidationMiddlewareFactory } from './validation';
-import type { Fetchable, Listable, ModelConstructor, Saveable } from '../../types/model';
+import type { Fetchable, Listable, Saveable } from '../../types/model';
 import type { Request, Response } from 'express';
 import joi from 'joi';
 
@@ -48,11 +48,8 @@ export function DetailViewFactory<DataModel>(model: Fetchable<DataModel>) {
     ]
 }
 
-interface SaveableModel<DataModel> extends ModelConstructor<DataModel> {
-    new(data:DataModel): Saveable<DataModel>;
-}
 
-export function AddViewFactory<DataModel>(model: SaveableModel<DataModel>, schema: joi.Schema) {
+export function AddViewFactory<DataModel>(model: Saveable<DataModel>, schema: joi.Schema) {
     return [
         ValidationMiddlewareFactory(schema, 'body'),
         async(req: Request, res: Response) => {

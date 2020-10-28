@@ -10,8 +10,9 @@ export interface ProductDataModel {
 }
 
 @staticImplements<Fetchable<ProductDataModel>>()
+@staticImplements<Saveable<ProductDataModel>>()
 @staticImplements<Listable<ProductDataModel>>()
-export class Product extends BaseModel<ProductDataModel> implements Saveable<ProductDataModel> {
+export class Product extends BaseModel<ProductDataModel> {
     async save(): Promise<Product> {
         const dataNoId = Object.fromEntries(Object.entries(this.data).filter(([x, ]) => x !== 'id'));
 

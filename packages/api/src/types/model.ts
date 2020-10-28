@@ -16,8 +16,12 @@ export interface Listable<DataModel> extends ModelConstructor<DataModel> {
     getTotal(): Promise<number>;
 }
 
-export interface Saveable<DataModel> {
+interface SaveableInstance<DataModel> extends ModelInstance<DataModel> {
     save(): Promise<ModelInstance<DataModel>>;
+}
+
+export interface Saveable<DataModel> extends ModelConstructor<DataModel> {
+    new(data:DataModel): SaveableInstance<DataModel>;
 }
 
 export function staticImplements<T>() {
