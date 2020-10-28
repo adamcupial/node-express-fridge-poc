@@ -1,5 +1,5 @@
-import { ValidationMiddlewareFactory } from './validation';
-import type { Fetchable, Listable, Saveable } from '../../types/model';
+import { ValidationMiddlewareFactory } from './utils/validation';
+import type { Fetchable, Listable, Saveable } from '../types/model';
 import type { Request, Response } from 'express';
 import joi from 'joi';
 

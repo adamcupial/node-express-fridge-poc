@@ -23,7 +23,3 @@ interface SaveableInstance<DataModel> extends ModelInstance<DataModel> {
 export interface Saveable<DataModel> extends ModelConstructor<DataModel> {
     new(data:DataModel): SaveableInstance<DataModel>;
 }
-
-export function staticImplements<T>() {
-    return <U extends T>(constructor: U) => {constructor};
-}

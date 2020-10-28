@@ -1,7 +1,7 @@
 import { BaseModel } from '../../core/base/model';
 import { DB } from '../../core/utils/db';
 import type { Fetchable, Listable, Saveable  } from '../../types/model';
-import { staticImplements } from '../../types/model';
+import { staticImplements } from '../../core/utils/ts-helpers';
 
 export interface ProductDataModel {
     id?: number;
